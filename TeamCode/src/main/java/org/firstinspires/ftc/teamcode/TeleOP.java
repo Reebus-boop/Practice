@@ -58,7 +58,7 @@ public class TeleOP extends LinearOpMode {
             }
             if(gamepad1.b){
                 robot.clawServo.setPosition(0);            }
-            telemetry.update();
+            telemetry.update()
         }
     }
 }
