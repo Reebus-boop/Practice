@@ -30,6 +30,7 @@ public class RobotHardware {
         bLeft = myOpMode.hardwareMap.get(DcMotor.class, "bLeft");
         bRight = myOpMode.hardwareMap.get(DcMotor.class, "bRight");
 
+        clawServo = myOpMode.hardwareMap.get(Servo.class, "clawServo");
 
         fLeft.setDirection(DcMotor.Direction.FORWARD);
         fRight.setDirection(DcMotor.Direction.REVERSE);
