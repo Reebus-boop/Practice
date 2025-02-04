@@ -29,14 +29,11 @@ package org.firstinspires.ftc.teamcode;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
-
+import org.firstinspires.ftc.teamcode.Components.RobotHardware;
 
 
 @TeleOp(name="Teleop", group="Linear OpMode")
@@ -49,15 +46,18 @@ public class TeleOP extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        robot.init();
-
         // Wait for the game to start (driver presses START)
         waitForStart();
+        robot.init();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             robot.driveRobot(gamepad1);
-
+            if (gamepad1.a) {
+                robot.clawServo.setPosition(1);
+            }
+            if(gamepad1.b){
+                robot.clawServo.setPosition(0);            }
             telemetry.update();
         }
     }

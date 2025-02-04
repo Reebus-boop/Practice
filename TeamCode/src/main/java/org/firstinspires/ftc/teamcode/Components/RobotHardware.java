@@ -1,23 +1,27 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Components;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
-
+import com.qualcomm.robotcore.hardware.Servo;
 
 
 public class RobotHardware {
-    private LinearOpMode myOpMode = null;
+    public LinearOpMode myOpMode = null;
     public RobotHardware(LinearOpMode opMode)
     {
         myOpMode = opMode;
     }
 
+
+    //Motors
     public DcMotor fLeft;
     public DcMotor fRight;
     public DcMotor bLeft;
     public DcMotor bRight;
 
+//Servos
+    public Servo clawServo;
 
     public void init()
     {
