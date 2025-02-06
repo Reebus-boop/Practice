@@ -23,6 +23,8 @@ public class RobotHardware {
 //Servos
     public Servo clawServo;
 
+    public Claw claw = new Claw();
+
     public void init()
     {
         fLeft = myOpMode.hardwareMap.get(DcMotor.class, "fLeft");

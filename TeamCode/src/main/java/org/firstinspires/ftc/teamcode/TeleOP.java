@@ -56,10 +56,11 @@ public class TeleOP extends LinearOpMode {
         while (opModeIsActive()) {
             robot.driveRobot(gamepad1);
             if (gamepad1.a) {
-                robot.Claw.clawOpen();
+                robot.claw.clawOpen();
             }
             if(gamepad1.b){
-                robot.Claw.clawClose();            }
+                robot.claw.clawClose();
+            }
             telemetry.update();
         }
     }
