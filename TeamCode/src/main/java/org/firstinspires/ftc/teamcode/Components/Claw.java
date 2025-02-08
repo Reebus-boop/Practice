@@ -22,7 +22,7 @@ public class Claw implements Component{
     }
 
     // Method to close the claw
-    public void clawClose() {d
+    public void clawClose() {
         clawServo.setPosition(CLAW_CLOSE_POSITION);
     }
 
