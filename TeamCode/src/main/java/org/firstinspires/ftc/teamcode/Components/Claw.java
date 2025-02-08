@@ -13,7 +13,7 @@ public class Claw implements Component{
     @Override
     public void init(RobotHardware robotHardware) {
         myOpMode = robotHardware.myOpMode;
-        clawServo = robotHardware.clawServo;
+        clawServo = myOpMode.hardwareMap.get(Servo.class, "clawServo");
         clawServo.setPosition(CLAW_CLOSE_POSITION);
     }
 
@@ -24,6 +24,11 @@ public class Claw implements Component{
     // Method to close the claw
     public void clawClose() {
         clawServo.setPosition(CLAW_CLOSE_POSITION);
+    }
+
+    public double getClawPos()
+    {
+        return clawServo.getPosition();
     }
 
 }

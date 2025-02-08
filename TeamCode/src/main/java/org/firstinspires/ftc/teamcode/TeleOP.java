@@ -31,10 +31,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Components.RobotHardware;
-
+import org.firstinspires.ftc.teamcode.Components.Claw;
 
 @TeleOp(name="Teleop", group="Linear OpMode")
 public class TeleOP extends LinearOpMode {
@@ -45,7 +46,7 @@ public class TeleOP extends LinearOpMode {
     public void runOpMode() {
         RobotHardware robot = new RobotHardware(this);
         telemetry.addData("Status", "Initialized");
-        telemetry.addData("Claw", robot.clawServo.getPosition());
+        telemetry.addData("Claw", robot.claw.getClawPos());
         telemetry.update();
 
         // Wait for the game to start (driver presses START)
@@ -54,7 +55,8 @@ public class TeleOP extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            robot.driveRobot(gamepad1);
+            telemetry.addData("Claw", robot.claw.getClawPos());
+            robot.mecnum.driveRobot(gamepad1);
             if (gamepad1.a) {
                 robot.claw.clawOpen();
             }
