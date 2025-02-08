@@ -42,7 +42,7 @@ public class Mecnum implements Component{
     public void driveRobot(Gamepad gamepad1){
         double y = -gamepad1.left_stick_y;
         double x = gamepad1.left_stick_x;
-        double rx = gamepad1.right_stick_x;
+        double rx = -gamepad1.right_stick_x;
         double slow = (gamepad1.right_trigger*2) +1;
 
         double frLeft = y + x + rx;
