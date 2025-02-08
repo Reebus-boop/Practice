@@ -46,7 +46,6 @@ public class TeleOP extends LinearOpMode {
     public void runOpMode() {
         RobotHardware robot = new RobotHardware(this);
         telemetry.addData("Status", "Initialized");
-        telemetry.addData("Claw", robot.claw.getClawPos());
         telemetry.update();
 
         // Wait for the game to start (driver presses START)
