@@ -42,7 +42,7 @@ public class Mecnum implements Component{
     public void driveRobot(Gamepad gamepad1){
         double y = -gamepad1.left_stick_y;
         double x = gamepad1.left_stick_x;
-        double rx = -gamepad1.right_stick_x;
+        double rx = gamepad1.right_stick_x;
         double slow = (gamepad1.right_trigger*2) +1;
 
         double frLeft = y + x + rx;
@@ -62,4 +62,13 @@ public class Mecnum implements Component{
         bLeft.setPower(v3/n);
         bRight.setPower(v4/n);
     }
+    public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior){
+        fLeft.setPower(0);
+        fRight.setPower(0);
+        bLeft.setPower(0);
+        bRight.setPower(0);
+
+    }
+
+
 }
