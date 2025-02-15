@@ -27,6 +27,15 @@ public class Mecnum implements Component{
         bLeft.setDirection(DcMotor.Direction.FORWARD);
         bRight.setDirection(DcMotor.Direction.REVERSE);
 
+
+
+
+        //Set ZeroPowerBehavior to BRAKE
+        setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+
+
         fLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         fRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -54,19 +63,36 @@ public class Mecnum implements Component{
 
     }
 
+    //Cause Force Instant STOP
+    if (Math.abs(y) < 0.05 && Math.abs(x) < 0.05 && Math.abs(rx) < 0.05){
+        setDrivePower {
+            (0, 0, 0, 1); //Hard Stop of joystick is released
+        } else{
+
+            setDrivePower(frLeft. frRight, baLeft, baRight, slow);
+        }
+
+    }
+
     //Sets driving speed
     public void setDrivePower(double v1, double v2, double v3, double v4, double s) {
         double n = 2 * s;
         fLeft.setPower(v1/n);
         fRight.setPower(v2/n);
+
         bLeft.setPower(v3/n);
         bRight.setPower(v4/n);
+
     }
-    public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior){
-        fLeft.setPower(0);
-        fRight.setPower(0);
-        bLeft.setPower(0);
-        bRight.setPower(0);
+
+    //Code to prevent coasting
+    public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
+
+        fLeft.setZeroPowerBehavior(zeroPowerBehavior);
+        fRight.setZeroPowerBehavior(zeroPowerBehavior);
+
+        bLeft.setZeroPowerBehavior(zeroPowerBehavior);
+        bRight.setZeroPowerBehavior(zeroPowerBehavior);
 
     }
 
