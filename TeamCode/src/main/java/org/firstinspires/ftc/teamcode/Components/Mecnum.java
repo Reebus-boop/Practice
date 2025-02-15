@@ -61,18 +61,38 @@ public class Mecnum implements Component{
 
         setDrivePower(frLeft, frRight, baLeft, baRight, slow);
 
+
+
+
+
+        //Cause Force Instant STOP
+             if (Math.abs(y) < 0.05 && Math.abs(x) < 0.05 && Math.abs(rx) < 0.05){
+            stopMotors();
+             }
+            else{
+
+                setDrivePower(frLeft, frRight, baLeft, baRight, slow);
+            }
     }
 
-    //Cause Force Instant STOP
-    if (Math.abs(y) < 0.05 && Math.abs(x) < 0.05 && Math.abs(rx) < 0.05){
-        setDrivePower {
-            (0, 0, 0, 1); //Hard Stop of joystick is released
-        } else{
 
-            setDrivePower(frLeft. frRight, baLeft, baRight, slow);
-        }
+        //Stops all motors instantly and ensures zero coasting
+
+    public void stopMotors() {
+      setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        fLeft.setPower(0);
+        fRight.setPower(0);
+        bLeft.setPower(0);
+        bRight.setPower(0);
+
+
+
 
     }
+
+
+
+
 
     //Sets driving speed
     public void setDrivePower(double v1, double v2, double v3, double v4, double s) {
