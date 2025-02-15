@@ -21,7 +21,7 @@ public class RobotHardware {
 
     public void init()
     {
-        //initiallize subsystems
+        //initialize subsystems
         for (int i = 0; i < components.length; i++)
         {
             components[i].init(this);
