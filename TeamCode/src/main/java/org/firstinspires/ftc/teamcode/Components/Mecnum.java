@@ -42,7 +42,7 @@ public class Mecnum implements Component{
         bRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         fLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        fRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        fRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         bLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -101,7 +101,7 @@ public class Mecnum implements Component{
 
     //Sets driving speed
     public void setDrivePower(double v1, double v2, double v3, double v4, double s) {
-        double n = 1 * s;
+        double n = 1.5 * s;
         fLeft.setPower(v1/n);
         fRight.setPower(v2/n);
 
