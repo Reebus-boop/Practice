@@ -101,7 +101,7 @@ public class Mecnum implements Component{
 
     //Sets driving speed
     public void setDrivePower(double v1, double v2, double v3, double v4, double s) {
-        double n = 2 * s;
+        double n = 1 * s;
         fLeft.setPower(v1/n);
         fRight.setPower(v2/n);
 
