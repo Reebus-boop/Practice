@@ -49,8 +49,12 @@ public class TeleOP extends LinearOpMode {
         telemetry.update();
 
         // Wait for the game to start (driver presses START)
+
+
+
         waitForStart();
         robot.init();
+
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {

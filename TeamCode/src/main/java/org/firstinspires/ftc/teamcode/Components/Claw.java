@@ -7,8 +7,8 @@ public class Claw implements Component{
     private LinearOpMode myOpMode;
     private Servo clawServo;     // Servo to open/close the claw
 
-    private final double CLAW_OPEN_POSITION = 1.0;   // Adjust as needed for your claw design
-    private final double CLAW_CLOSE_POSITION = 0.0;  // Adjust as needed for your claw design
+    private final double CLAW_OPEN_POSITION = 0.075;   // Adjust as needed for your claw design
+    private final double CLAW_CLOSE_POSITION = 0.1;  // Adjust as needed for your claw design
 
     @Override
     public void init(RobotHardware robotHardware) {
