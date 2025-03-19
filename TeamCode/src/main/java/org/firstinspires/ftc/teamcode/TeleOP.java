@@ -66,6 +66,10 @@ public class TeleOP extends LinearOpMode {
             if(gamepad1.b){
                 robot.claw.clawClose();
             }
+            if (gamepad1.y) {
+                robot.claw.toggleWrist();
+            }
+
             telemetry.update();
         }
     }

@@ -56,7 +56,7 @@ public class Mecnum implements Component{
     public void driveRobot(Gamepad gamepad1){
         double y = -gamepad1.left_stick_y;
         double x = gamepad1.left_stick_x;
-        double rx = gamepad1.right_stick_x;
+        double rx = -gamepad1.right_stick_x;
         double slow = (gamepad1.right_trigger*2) +1;
 
         double frLeft = y + x + rx;
@@ -101,7 +101,7 @@ public class Mecnum implements Component{
 
     //Sets driving speed
     public void setDrivePower(double v1, double v2, double v3, double v4, double s) {
-        double n = 1.5 * s;
+        double n = 1.3 * s; //1.5
         fLeft.setPower(v1/n);
         fRight.setPower(v2/n);
 
