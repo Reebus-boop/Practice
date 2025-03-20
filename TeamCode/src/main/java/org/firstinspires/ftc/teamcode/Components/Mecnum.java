@@ -1,125 +1,159 @@
 package org.firstinspires.ftc.teamcode.Components;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-public class Mecnum implements Component{
+public class Mecnum implements Component {
+    private RobotHardware robotHardware;
 
-    public LinearOpMode myOpMode = null;
+    public final double DRIVE_SPEED_MAX = 0.95;
+    public final double DRIVE_SPEED_SLOW = 0.05;
+    public double driveSpeedControl = DRIVE_SPEED_MAX;
 
-    public DcMotor fLeft;
-    public DcMotor fRight;
-    public DcMotor bLeft;
-    public DcMotor bRight;
+    // Custom speeds for individual motors
+    public double speedFLeft = 1.0;
+    public double speedFRight = 1.0;
+
+    public double speedBLeft = 1.0; //Back should have more power
+    public double speedBRight = 1.0; //Back should have more power
+
+    // Motors
+    public DcMotorEx fLeft;
+    public DcMotorEx fRight;
+    public DcMotorEx bLeft;
+    public DcMotorEx bRight;
 
     @Override
     public void init(RobotHardware robotHardware) {
-        myOpMode = robotHardware.myOpMode;
+        fLeft = robotHardware.fLeft;
+        fRight = robotHardware.fRight;
+        bLeft = robotHardware.bLeft;
+        bRight = robotHardware.bRight;
 
-        fLeft = myOpMode.hardwareMap.get(DcMotor.class, "fLeft");
-        fRight = myOpMode.hardwareMap.get(DcMotor.class, "fRight");
-        bLeft = myOpMode.hardwareMap.get(DcMotor.class, "bLeft");
-        bRight = myOpMode.hardwareMap.get(DcMotor.class, "bRight");
+        fLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        fRight.setDirection(DcMotorEx.Direction.FORWARD);
+        bLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        bRight.setDirection(DcMotorEx.Direction.FORWARD);
 
-        fLeft.setDirection(DcMotor.Direction.FORWARD);
-        fRight.setDirection(DcMotor.Direction.REVERSE);
-        bLeft.setDirection(DcMotor.Direction.FORWARD);
-        bRight.setDirection(DcMotor.Direction.REVERSE);
-
-
-
-
-        //Set ZeroPowerBehavior to BRAKE
-        setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
-
-
-        fLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        fRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        fLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        fRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        bLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        bRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        fLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        fRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        bLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        bRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+        fLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        fRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        bLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        bRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public void driveRobot(Gamepad gamepad1){
+    // Separate drive controls for each motor with individual speeds
+    public void setDrivePowerFLeft(double power) {
+        fLeft.setPower(power * driveSpeedControl * speedFLeft);
+    }
+
+    public void setDrivePowerFRight(double power) {
+        fRight.setPower(power * driveSpeedControl * speedFRight);
+    }
+
+    public void setDrivePowerBLeft(double power) {
+        bLeft.setPower(power * driveSpeedControl * speedBLeft);
+    }
+
+    public void setDrivePowerBRight(double power) {
+        bRight.setPower(power * driveSpeedControl * speedBRight);
+    }
+
+    // Unified method for all motors
+    public void setDrivePowerAuto(double v1, double v2, double v3, double v4) {
+        setDrivePowerFLeft(v1);
+        setDrivePowerFRight(v2);
+        setDrivePowerBLeft(v3);
+        setDrivePowerBRight(v4);
+    }
+
+    public void setDrivePower(double v1, double v2, double v3, double v4) {
+
+        fLeft.setPower(v1 * driveSpeedControl);
+        fRight.setPower(v2 * driveSpeedControl);
+        bLeft.setPower(v3 * driveSpeedControl);
+        bRight.setPower(v4 * driveSpeedControl);
+    }
+
+    // Power function for Auto
+    public void powerFunction(double speedF, double speedR, double speedB, double speedFL) {
+        this.speedFLeft = speedFL;
+        this.speedFRight = speedF;
+        this.speedBLeft = speedB;
+        this.speedBRight = speedR;
+    }
+
+    public void driveRobot(Gamepad gamepad1) {
         double y = -gamepad1.left_stick_y;
         double x = gamepad1.left_stick_x;
-        double rx = -gamepad1.right_stick_x;
-        double slow = (gamepad1.right_trigger*2) +1;
+        double rx = gamepad1.right_stick_x;
 
         double frLeft = y + x + rx;
-        double frRight = y - x - rx  ;
+        double frRight = y - x - rx;
         double baLeft = y - x + rx;
         double baRight = y + x - rx;
 
-        setDrivePower(frLeft, frRight, baLeft, baRight, slow);
-
-
-
-
-
-        //Cause Force Instant STOP
-             if (Math.abs(y) < 0.05 && Math.abs(x) < 0.05 && Math.abs(rx) < 0.05){
-            stopMotors();
-             }
-            else{
-
-                setDrivePower(frLeft, frRight, baLeft, baRight, slow);
-            }
+        setDrivePower(frLeft, frRight, baLeft, baRight);
     }
 
-
-        //Stops all motors instantly and ensures zero coasting
-
-    public void stopMotors() {
-      setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        fLeft.setPower(0);
-        fRight.setPower(0);
-        bLeft.setPower(0);
-        bRight.setPower(0);
-
-
-
-
+    public void brake(double button) {
+//        if (button)
+//        {
+//            driveSpeedControl = DRIVE_SPEED_SLOW;
+//        }
+//        else
+//        {
+//            driveSpeedControl = DRIVE_SPEED_MAX;
+//        };
+//        driveSpeedControl = (DRIVE_SPEED_MAX * button) + DRIVE_SPEED_SLOW;
     }
 
+    /**
+     * Move the robot forward for a specific duration.
+     *
+     * @param power the power level to set for the motors
+     * @param time      the duration to move in milliseconds
+     */
+    private void moveForward(double power, int time) {
+        setDrivePower(power, power, power, power);
+        stopMoving();
+    }
 
+    /**
+     * Stop all drive motors.
+     */
+    private void stopMoving() {
+        robotHardware.fLeft.setPower(0);
+        robotHardware.fRight.setPower(0);
+        robotHardware.bLeft.setPower(0);
+        robotHardware.bRight.setPower(0);
+    }
 
-
-
-    //Sets driving speed
-    public void setDrivePower(double v1, double v2, double v3, double v4, double s) {
-        double n = 1.3 * s; //1.5
-        fLeft.setPower(v1/n);
-        fRight.setPower(v2/n);
-
-        bLeft.setPower(v3/n);
-        bRight.setPower(v4/n);
-
+    /**
+     * Strafe the robot either left or right.
+     *
+     * @param power the power level to set for the motors
+     * @param time      the duration to move in milliseconds
+     */
+    public void strafe(double power, int time) {
+        robotHardware.fLeft.setPower(power * driveSpeedControl * speedFLeft);
+        robotHardware.fRight.setPower(-power * driveSpeedControl * speedFRight);
+        robotHardware.bLeft.setPower(-power * driveSpeedControl * speedBLeft);
+        robotHardware.bRight.setPower(power * driveSpeedControl * speedBRight);
+        stopMoving();
     }
 //
-    //Code to prevent coasting
-    public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
-
-        fLeft.setZeroPowerBehavior(zeroPowerBehavior);
-        fRight.setZeroPowerBehavior(zeroPowerBehavior);
-
-        bLeft.setZeroPowerBehavior(zeroPowerBehavior);
-        bRight.setZeroPowerBehavior(zeroPowerBehavior);
-
+    /**
+     * Rotate the robot either left or right.
+     *
+     * @param power the power level to set for the motors
+     * @param time      the duration to rotate in milliseconds
+     */
+    public void rotate(double power, int time) {
+        robotHardware.fLeft.setPower(power * driveSpeedControl * speedFLeft);
+        robotHardware.fRight.setPower(-power * driveSpeedControl * speedFRight);
+        robotHardware.bLeft.setPower(power * driveSpeedControl * speedBLeft);
+        robotHardware.bRight.setPower(-power * driveSpeedControl * speedBRight);
+        stopMoving();
     }
-
-
 }

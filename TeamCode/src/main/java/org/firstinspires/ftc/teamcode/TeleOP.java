@@ -59,6 +59,7 @@ public class TeleOP extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             telemetry.addData("Claw", robot.claw.getClawPos());
+            telemetry.addData("Wrist", robot.claw.getWristPos());
             robot.mecnum.driveRobot(gamepad1);
             if (gamepad1.a) {
                 robot.claw.clawOpen();
@@ -69,7 +70,11 @@ public class TeleOP extends LinearOpMode {
             if (gamepad1.y) {
                 robot.claw.toggleWrist();
             }
-
+            if (gamepad1.right_bumper) {
+                robot.lifts.raiseLift();
+            } else if (gamepad1.left_bumper) {
+                robot.lifts.lowerLift();
+            }
             telemetry.update();
         }
     }
