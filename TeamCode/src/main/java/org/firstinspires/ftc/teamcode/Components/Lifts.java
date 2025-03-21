@@ -12,7 +12,7 @@ public class Lifts implements Component {
     private final int LIFT_HIGH = 2500;
     private DcMotorEx lLift;
     private DcMotorEx rLift;
-
+//
     public void init(RobotHardware robotHardware) {
         // Initialize lift motors from RobotHardware
         myOpMode = robotHardware.myOpMode;
