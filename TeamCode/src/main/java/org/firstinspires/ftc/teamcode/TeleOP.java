@@ -70,11 +70,12 @@ public class TeleOP extends LinearOpMode {
             if (gamepad1.y) {
                 robot.claw.toggleWrist();
             }
-            if (gamepad1.right_bumper) {
+            if (gamepad1.dpad_up) {
                 robot.lifts.raiseLift();
-            } else if (gamepad1.left_bumper) {
+            } else if (gamepad1.dpad_down) {
                 robot.lifts.lowerLift();
-            }
+            }else
+                robot.lifts.sLifts();
             telemetry.update();
         }
     }

@@ -3,15 +3,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 
 public class Lifts implements Component {
 
 
     private LinearOpMode myOpMode = null;
     private final int LIFT_LOW = 0;
-    private final int LIFT_HIGH = 4100;
+    private final int LIFT_HIGH = 2500;
     private DcMotorEx lLift;
     private DcMotorEx rLift;
 
@@ -27,7 +25,7 @@ public class Lifts implements Component {
         lLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        lLift.setDirection(DcMotorSimple.Direction.FORWARD);
+        lLift.setDirection(DcMotorSimple.Direction.REVERSE);
         rLift.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
@@ -58,7 +56,10 @@ public class Lifts implements Component {
         }
     }
 
-
+    public void sLifts() {
+            rLift.setPower(0);
+            lLift.setPower(0);
+    }
 
 }
 
