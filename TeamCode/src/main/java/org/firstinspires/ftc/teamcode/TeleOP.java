@@ -61,12 +61,16 @@ public class TeleOP extends LinearOpMode {
             telemetry.addData("Claw", robot.claw.getClawPos());
             telemetry.addData("Wrist", robot.claw.getWristPos());
             robot.mecnum.driveRobot(gamepad1);
-            if (gamepad1.a) {
-                robot.claw.clawOpen();
+
+            if (gamepad1.a){
+                robot.claw.toggleClaw();
             }
-            if(gamepad1.b){
-                robot.claw.clawClose();
-            }
+         //   if (gamepad1.a) {
+           //     robot.claw.clawOpen();
+            //}
+           // if(gamepad1.b){
+             //   robot.claw.clawClose();
+            //}
             if (gamepad1.y) {
                 robot.claw.toggleWrist();
             }

@@ -9,7 +9,7 @@ public class Lifts implements Component {
 
     private LinearOpMode myOpMode = null;
     private final int LIFT_LOW = 0;
-    private final int LIFT_HIGH = 2500;
+    private final int LIFT_HIGH = 2000;
     private DcMotorEx lLift;
     private DcMotorEx rLift;
 //
