@@ -156,4 +156,41 @@ public class Mecnum implements Component {
         robotHardware.bRight.setPower(-power * driveSpeedControl * speedBRight);
         stopMoving();
     }
-}
+
+    public void moveForward() {
+
+        fLeft.setPower(-0.5);
+        fRight.setPower(-0.5);
+        bLeft.setPower(-0.5);
+        bRight.setPower(-0.5);
+
+    }
+    public void moveBackward() {
+
+        fLeft.setPower(-0.5);
+        fRight.setPower(-0.5);
+        bLeft.setPower(-0.5);
+        bRight.setPower(-0.5);
+
+    }
+    public void MotorStop(){
+        fLeft.setPower(0);
+        fRight.setPower(0);
+        bLeft.setPower(0);
+        bRight.setPower(0);
+    }
+    public void turnRight(){ //threadsleep 650
+        fLeft.setPower(0.5);
+        fRight.setPower(-0.5);
+        bLeft.setPower(0.5);
+        bRight.setPower(-0.5);
+    }
+
+    public void turnLeft(){  //threadsleep 650
+        fLeft.setPower(-0.5);
+        fRight.setPower(0.5);
+        bLeft.setPower(-0.5);
+        bRight.setPower(0.5);
+    }
+
+    }
