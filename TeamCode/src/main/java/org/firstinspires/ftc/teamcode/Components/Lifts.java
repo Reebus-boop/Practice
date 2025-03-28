@@ -70,4 +70,10 @@ public class Lifts implements Component {
         lLift.setPower(0.75); // Small power to hold position
         rLift.setPower(0.75);
     }
+    public int getlLifts(){
+        return lLift.getCurrentPosition();
+    }
+    public int getrLifts(){
+        return rLift.getCurrentPosition();
+    }
 }

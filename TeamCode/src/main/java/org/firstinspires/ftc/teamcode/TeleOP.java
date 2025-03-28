@@ -40,6 +40,9 @@ import org.firstinspires.ftc.teamcode.Components.Claw;
 @TeleOp(name="Teleop", group="Linear OpMode")
 public class TeleOP extends LinearOpMode {
 
+    private boolean astate = false;
+
+
     RobotHardware robot = new RobotHardware(this);
 
     @Override
@@ -60,20 +63,44 @@ public class TeleOP extends LinearOpMode {
         while (opModeIsActive()) {
             telemetry.addData("Claw", robot.claw.getClawPos());
             telemetry.addData("Wrist", robot.claw.getWristPos());
+            telemetry.addData("Left Lift", robot.lifts.getlLifts());
+            telemetry.addData("Right Lift", robot.lifts.getrLifts());
             robot.mecnum.driveRobot(gamepad1);
 
-            if (gamepad1.a){
+            if (gamepad1.a && !astate)
+            {
                 robot.claw.toggleClaw();
+                astate = true;
             }
+            else if (!gamepad1.a && astate) {
+                astate = false;
+            }
+
+
+
+            //old toggle code
+           // if (gamepad1.a){
+             //   robot.claw.toggleClaw();
+            //}
          //   if (gamepad1.a) {
            //     robot.claw.clawOpen();
             //}
            // if(gamepad1.b){
              //   robot.claw.clawClose();
             //}
+
+
+
+
+
             if (gamepad1.y) {
                 robot.claw.toggleWrist();
             }
+
+
+
+
+
             if (gamepad1.dpad_up) {
                 robot.lifts.raiseLift();
             } else if (gamepad1.dpad_down) {
