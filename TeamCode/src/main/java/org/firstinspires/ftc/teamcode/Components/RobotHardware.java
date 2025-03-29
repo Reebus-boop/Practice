@@ -13,38 +13,17 @@ public class RobotHardware {
     {
         myOpMode = opMode;
     }
-public Servo clawServo;
-        public Servo wristServo;
-
-    public DcMotorEx fLeft;
-    public DcMotorEx fRight;
-    public DcMotorEx bLeft;
-    public DcMotorEx bRight;
-    public DcMotorEx lLift;
-    public DcMotorEx rLift;
 
     //Subsystems
-    public Mecnum mecnum = new Mecnum();
-    public Claw claw = new Claw();
-    public Lifts lifts = new Lifts();
-
-    Component[] components = {mecnum, claw, lifts};
+    public  MoveMotor movemotor = new MoveMotor();
+    public  MoveServo moveservo = new MoveServo();
+    Component[] components = {movemotor, moveservo};
 
     public void init()
     {
         //init motors
-        fLeft = myOpMode.hardwareMap.get(DcMotorEx.class, "fLeft");
-        fRight = myOpMode.hardwareMap.get(DcMotorEx.class, "fRight");
-        bLeft = myOpMode.hardwareMap.get(DcMotorEx.class, "bLeft");
-        bRight = myOpMode.hardwareMap.get(DcMotorEx.class, "bRight");
-        lLift = myOpMode.hardwareMap.get(DcMotorEx.class, "lLift");
-        rLift = myOpMode.hardwareMap.get(DcMotorEx.class, "rLift");
 
-//init servos
-        clawServo = myOpMode.hardwareMap.get(Servo.class, "clawServo");
-        wristServo = myOpMode.hardwareMap.get(Servo.class, "wristServo");
-
-
+        //init servos
 
 
         //initialize subsystems
